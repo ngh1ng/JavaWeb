@@ -40,6 +40,10 @@ public class home extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet home at " + request.getContextPath() + "</h1>");
+            
+            String name = "Nguyen Hoang Long";
+            out.println("<h1 style = 'color: red'>Hello " + name + " !");
+            
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,7 +61,39 @@ public class home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //call processRequest
+            //processRequest(request, response);
+        
+        //redirect to another page 
+            //response.sendRedirect("https://www.youtube.com/watch?v=F4OC5kTyFaQ&list=PLD8zSU7U1L2HJR6ti3WflVvEqBHRAro2h&index=2");
+   
+        //redirect to a local file in the project
+        //use when only want to redirect to other file
+            //response.sendRedirect("index.html");
+            
+        //foward to a local file in the project
+        //can foward data to other file without redirect 
+            //request.getRequestDispatcher("index.html").forward(request, response);
+    
+        //give data to server
+        String number = request.getParameter("number");
+        String name = request.getParameter("name");
+        PrintWriter out = response.getWriter();
+        
+        int n;
+        try {
+            //n must be number 
+            n = Integer.parseInt(number);
+            if (n%2 == 0) {
+                out.print("Even Number");
+            } else {
+                out.print("Odd Number");
+            }
+            //if n is not a number then console print exception
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
+        out.println("\nHello " + name);
     }
 
     /**
